@@ -1,0 +1,522 @@
+/* CTF 1.8 */
+typealias integer { size = 8; align = 8; signed = true; } := int8_t;
+typealias integer { size = 8; align = 8; signed = false; } := uint8_t;
+typealias integer { size = 16; align = 8; signed = false; } := uint16_t;
+typealias integer { size = 32; align = 8; signed = false; } := uint32_t;
+typealias integer { size = 32; align = 8; signed = true; } := int32_t;
+typealias integer { size = 64; align = 8; signed = false; } := uint64_t;
+
+trace {
+	major = 1;
+	minor = 8;
+	byte_order = le;
+};
+
+stream {
+    event.header := struct {
+        uint32_t timestamp;
+        uint8_t  id;
+    };
+    event.context := struct {
+        uint8_t core_id;
+    };
+    packet.context := struct {};
+};
+
+event {
+    name = isr_enter;
+    id = 0x10;
+    stream_id = 0;
+    fields := struct {
+        uint32_t isr_number;
+    };
+};
+
+event {
+    name = isr_exit;
+    id = 0x11;
+    stream_id = 0;
+    fields := struct { };
+};
+
+event {
+    name = vTaskDelay;
+    id = 0x12;
+    stream_id = 0;
+    fields := struct {
+        uint32_t ticks_to_delay;
+    };
+};
+
+event {
+    name = notify_take;
+    id = 0x13;
+    stream_id = 0;
+    fields := struct {
+        uint32_t clear_count_on_exit;
+        uint32_t ticks_to_wait;
+    };
+};
+
+event {
+    name = task_delay_until;
+    id = 0x14;
+    stream_id = 0;
+    fields := struct { };
+};
+
+event {
+    name = notify_give_from_isr;
+    id = 0x15;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxTCB;
+        uint32_t pxHigherPriorityTaskWoken;
+    };
+};
+
+event {
+    name = task_priority_inherit;
+    id = 0x16;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxMutexHolder;
+    };
+};
+
+event {
+    name = vTaskResume;
+    id = 0x17;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxTCB;
+    };
+};
+
+event {
+    name = increase_tick_count;
+    id = 0x18;
+    stream_id = 0;
+    fields := struct {
+        uint32_t xTicksToJump;
+    };
+};
+
+event {
+    name = vTaskSuspend;
+    id = 0x19;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxTCB;
+    };
+};
+
+event {
+    name = task_priority_disinherit;
+    id = 0x1A;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxMutexHolder;
+    };
+};
+
+event {
+    name = task_notify;
+    id = 0x1C;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxTCB;
+        uint32_t ulValue;
+        uint32_t eAction;
+        uint32_t pulPreviousNotificationValue;
+    };
+};
+
+event {
+    name = task_notify_from_isr;
+    id = 0x1D;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxTCB;
+        uint32_t ulValue;
+        uint32_t eAction;
+        uint32_t pulPreviousNotificationValue;
+        uint32_t pxHigherPriorityTaskWoken;
+    };
+};
+
+event {
+    name = task_notify_wait;
+    id = 0x1E;
+    stream_id = 0;
+    fields := struct {
+        uint32_t ulBitsToClearOnEntry;
+        uint32_t ulBitsToClearOnExit;
+        uint32_t pulNotificationValue;
+        uint32_t xTicksToWait;
+    };
+};
+
+event {
+    name = queue_create;
+    id = 0x1F;
+    stream_id = 0;
+    fields := struct {
+        uint32_t uxQueueLength;
+        uint32_t uxItemSize;
+        uint32_t ucQueueType;
+    };
+};
+
+event {
+    name = queue_delete;
+    id = 0x20;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxQueue;
+    };
+};
+
+event {
+    name = queue_peek;
+    id = 0x21;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxQueue;
+        uint32_t pvBuffer;
+        uint32_t xTicksToWait;
+        uint32_t param;
+    };
+};
+
+event {
+    name = queue_peek_from_isr;
+    id = 0x22;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxQueue;
+        uint32_t xTicksToWait;
+    };
+};
+
+event {
+    name = queue_peek_from_isr_failed;
+    id = 0x23;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxQueue;
+        uint32_t xTicksToWait;
+    };
+};
+
+event {
+    name = queue_receive;
+    id = 0x24;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxQueue;
+        uint32_t pvBuffer;
+        uint32_t xTicksToWait;
+        uint32_t param;
+    };
+};
+
+event {
+    name = queue_receive_failed;
+    id = 0x25;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxQueue;
+        uint32_t pvBuffer;
+        uint32_t xTicksToWait;
+        uint32_t param;
+    };
+};
+
+event {
+    name = queue_semaphore_receive;
+    id = 0x26;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxQueue;
+        uint32_t pvBuffer;
+        uint32_t xTicksToWait;
+        uint32_t param;
+    };
+};
+
+event {
+    name = queue_receive_from_isr;
+    id = 0x27;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxQueue;
+        uint32_t pvBuffer;
+        uint32_t pxHigherPriorityTaskWoken;
+    };
+};
+
+event {
+    name = queue_receive_from_isr_failed;
+    id = 0x28;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxQueue;
+        uint32_t pvBuffer;
+        uint32_t pxHigherPriorityTaskWoken;
+    };
+};
+
+event {
+    name = queue_registry_add;
+    id = 0x29;
+    stream_id = 0;
+    fields := struct {
+        uint32_t xQueue;
+        uint32_t pcQueueName;
+    };
+};
+
+event {
+    name = queue_send_failed;
+    id = 0x2A;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxQueue;
+        uint32_t pvItemToQueue;
+        uint32_t xTicksToWait;
+        uint32_t xCopyPosition;
+    };
+};
+
+event {
+    name = queue_send_from_isr;
+    id = 0x2B;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxQueue;
+        uint32_t pvItemToQueue;
+        uint32_t pxHigherPriorityTaskWoken;
+        uint32_t xCopyPosition;
+    };
+};
+
+event {
+    name = queue_send_from_isr_failed;
+    id = 0x2C;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxQueue;
+        uint32_t pvItemToQueue;
+        uint32_t xTicksToWait;
+        uint32_t xCopyPosition;
+    };
+};
+
+event {
+    name = queue_give_from_isr;
+    id = 0x2D;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxQueue;
+        uint32_t pxHigherPriorityTaskWoken;
+    };
+};
+
+event {
+    name = queue_give_from_isr_failed;
+    id = 0x2E;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxQueue;
+        uint32_t xTicksToWait;
+    };
+};
+
+event {
+    name = stream_buffer_create;
+    id = 0x2F;
+    stream_id = 0;
+    fields := struct {
+        uint32_t xIsMessageBuffer;
+        uint32_t pxStreamBuffer;
+    };
+};
+
+event {
+    name = stream_buffer_create_failed;
+    id = 0x30;
+    stream_id = 0;
+    fields := struct {
+        uint32_t xIsMessageBuffer;
+        uint32_t pxStreamBuffer;
+    };
+};
+
+event {
+    name = stream_buffer_delete;
+    id = 0x31;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxStreamBuffer;
+    };
+};
+
+event {
+    name = stream_buffer_reset;
+    id = 0x32;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxStreamBuffer;
+    };
+};
+
+event {
+    name = stream_buffer_send;
+    id = 0x33;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxStreamBuffer;
+        uint32_t xBytesSent;
+    };
+};
+
+event {
+    name = stream_buffer_send_failed;
+    id = 0x34;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxStreamBuffer;
+        uint32_t xBytesSent;
+    };
+};
+
+event {
+    name = stream_buffer_send_from_isr;
+    id = 0x35;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxStreamBuffer;
+        uint32_t xBytesSent;
+    };
+};
+
+event {
+    name = stream_buffer_receive;
+    id = 0x36;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxStreamBuffer;
+        uint32_t xReceivedLength;
+    };
+};
+
+event {
+    name = stream_buffer_receive_failed;
+    id = 0x37;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxStreamBuffer;
+        uint32_t xReceivedLength;
+    };
+};
+
+event {
+    name = stream_buffer_receive_from_isr;
+    id = 0x38;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxStreamBuffer;
+        uint32_t xReceivedLength;
+    };
+};
+
+event {
+    name = task_delete;
+    id = 0x39;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxTCB;
+    };
+};
+
+event {
+    name = task_create;
+    id = 0x3A;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxTCB;
+    };
+};
+
+event {
+    name = task_priority_set;
+    id = 0x3B;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxTask;
+        uint32_t uxNewPriority;
+    };
+};
+
+event {
+    name = task_switched_in;
+    id = 0x3C;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxTCB;
+    };
+};
+
+event {
+    name = idle;
+    id = 0x3D;
+    stream_id = 0;
+    fields := struct { };
+};
+
+event {
+    name = task_to_ready_state;
+    id = 0x3E;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxTCB;
+    };
+};
+
+event {
+    name = task_to_delayed_list;
+    id = 0x3F;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxTCB;
+        uint32_t cause;
+    };
+};
+
+event {
+    name = task_to_overflow_delayed_list;
+    id = 0x40;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxTCB;
+        uint32_t cause;
+    };
+};
+
+event {
+    name = task_to_suspended_list;
+    id = 0x41;
+    stream_id = 0;
+    fields := struct {
+        uint32_t pxTCB;
+        uint32_t cause;
+    };
+};
+
+event {
+    name = isr_exit_to_scheduler;
+    id = 0x42;
+    stream_id = 0;
+    fields := struct { };
+};
