@@ -1,0 +1,5 @@
+[mapping:esp_ctf]
+archive: lib${COMPONENT_NAME}.a
+entries:
+    # Place all the symbols in the IRAM to allow tracing when flash cache is disabled
+    adapter_encoder_ctf (noflash)

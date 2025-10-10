@@ -1,0 +1,4 @@
+esp_ctf/example:
+  enable:
+    - if: IDF_VERSION_MAJOR >= 6
+      reason: esp_trace component was introduced in IDF v6.0
