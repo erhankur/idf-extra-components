@@ -5,7 +5,7 @@ menu "GNU Code Coverage"
         depends on APPTRACE_ENABLE && !APPTRACE_SV_ENABLE
         select ESP_DEBUG_STUBS_ENABLE
         select ESP_IPC_ENABLE
-        default y
+        default n
         help
             Enables support for GCOV data transfer to host.
 
