@@ -1,0 +1,21 @@
+menu "CTF (Common Trace Format) Configuration"
+    depends on ESP_TRACE_LIB_EXTERNAL
+
+    config ESP_CTF_OPTIMIZE_SPEED
+        bool "Compile CTF encoder for speed (-O2)"
+        default y
+        help
+            Compile this component with -O2 regardless of the project-wide
+            optimization level. Every trace event record runs through this
+            code, so its speed directly sets the per-event tracing overhead.
+
+    config ESP_CTF_BUF_WAIT_TMO
+        int "Trace buffer wait timeout"
+        default 500
+        help
+            Configures timeout (in us) to wait for free space in the trace buffer.
+            Events that do not fit in time are dropped and reported to the host
+            with an "events_lost" event. Set to -1 to wait forever and avoid
+            lost events.
+
+endmenu

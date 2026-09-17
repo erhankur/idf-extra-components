@@ -11,6 +11,7 @@ manifest_file = [
     "clarke_park/.build-test-rules.yml",
     "coremark/.build-test-rules.yml",
     "eigen/.build-test-rules.yml",
+    "esp_ctf/.build-test-rules.yml",
     "esp_daylight/.build-test-rules.yml",
     "esp_delta_ota/.build-test-rules.yml",
     "esp_cli_commands/.build-test-rules.yml",

@@ -32,6 +32,7 @@ body:
         - coremark
         - dhara
         - eigen
+        - esp_ctf
         - esp_daylight
         - esp_delta_ota
         - esp_cli_commands
